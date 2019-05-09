@@ -13,6 +13,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 8983
 ENTRYPOINT ["docker-entrypoint.sh"]
-LABEL maintainer="GEB" description="GEB_TRECSA Portals Network Search" environment="Production"
+LABEL maintainer="Aplyca" description="Solr search engine for eZ Platform"
 
 CMD ["java", "-jar", "start.jar"]
