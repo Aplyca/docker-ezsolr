@@ -1,6 +1,8 @@
 FROM openjdk:7-jre-alpine as prod
 
-RUN wget -q https://github.com/ezsystems/ezfind/archive/v2017.12.0.zip -O /tmp/ezfind-ls.zip && \ 
+ENV EZFIND_VERSION "v2017.12.0"
+
+RUN wget -q https://github.com/ezsystems/ezfind/archive/${EZFIND_VERSION}.zip -O /tmp/ezfind-ls.zip && \ 
     unzip /tmp/ezfind-ls.zip '*/java/*' -d /usr/local && \
     mv /usr/local/ezfind-2017.12.0/java /usr/local/solr && \
     rm -rf /tmp/ezfind-ls.zip
