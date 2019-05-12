@@ -8,7 +8,7 @@ RUN wget -q https://github.com/ezsystems/ezfind/archive/${EZFIND_VERSION}.zip -O
     rm -rf /tmp/ezfind-ls.zip
 
 WORKDIR /usr/local/solr
-ENV CORE_NAME=core
+ENV CORE_NAME=app
 
 COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
