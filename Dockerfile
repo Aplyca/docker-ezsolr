@@ -1,13 +1,13 @@
-FROM openjdk:7-jre-alpine as prod
+FROM openjdk:8-jre-alpine as prod
 
-ENV EZFIND_VERSION "v2017.12.0"
+ENV SOLR_VERSION "7.7.2"
 
-RUN wget -q https://github.com/ezsystems/ezfind/archive/${EZFIND_VERSION}.zip -O /tmp/ezfind-ls.zip && \ 
-    unzip /tmp/ezfind-ls.zip '*/java/*' -d /usr/local && \
-    mv /usr/local/ezfind-2017.12.0/java /usr/local/solr && \
-    rm -rf /tmp/ezfind-ls.zip
+RUN wget -q http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip -O /tmp/solr-${SOLR_VERSION}.zip && \ 
+    unzip /tmp/solr-${SOLR_VERSION}.zip -d /usr/local && \
+    mv /usr/local/solr-7.7.2 /usr/local/solr && \
+    rm -rf /tmp/solr-${SOLR_VERSION}.zip
 
-WORKDIR /usr/local/solr
+WORKDIR /usr/local/solr/server
 ENV CORE_NAME=app
 
 COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
@@ -15,6 +15,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 8983
 ENTRYPOINT ["docker-entrypoint.sh"]
-LABEL maintainer="Aplyca" description="Solr search engine for eZ Platform"
+LABEL maintainer="Aplyca" description="Solr 7.0 search engine for eZ Platform"
 
-CMD ["java", "-jar", "start.jar"]
+CMD ["java", "-jar", "start.jar", "--module=http"]
