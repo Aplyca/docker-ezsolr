@@ -13,4 +13,4 @@ WORKDIR /usr/local/solr
 
 EXPOSE 8983
 
-CMD ["java", "-jar", "start.jar"]
+CMD ["sh", "-c", "java -jar start.jar"]
