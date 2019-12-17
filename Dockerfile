@@ -1,6 +1,8 @@
-FROM openjdk:7-jre-alpine as prod
+FROM openjdk:7-jre-alpine
 
-ENV EZFIND_VERSION "v2017.12.0"
+LABEL maintainer="Aplyca" description="Solr search engine for eZ Platform"
+
+ARG EZFIND_VERSION=v2017.12.0
 
 RUN wget -q https://github.com/ezsystems/ezfind/archive/${EZFIND_VERSION}.zip -O /tmp/ezfind-ls.zip && \ 
     unzip /tmp/ezfind-ls.zip '*/java/*' -d /usr/local && \
@@ -8,13 +10,7 @@ RUN wget -q https://github.com/ezsystems/ezfind/archive/${EZFIND_VERSION}.zip -O
     rm -rf /tmp/ezfind-ls.zip
 
 WORKDIR /usr/local/solr
-ENV CORE_NAME=app
-
-COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 8983
-ENTRYPOINT ["docker-entrypoint.sh"]
-LABEL maintainer="Aplyca" description="Solr search engine for eZ Platform"
 
 CMD ["java", "-jar", "start.jar"]
